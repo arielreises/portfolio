@@ -59,34 +59,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let timeLeft = 180;
     let score = 0;
+    let quizSubmitted = false; // Variável para rastrear o envio do quiz
+    let timerInterval; // Timer global para reiniciar no retry
 
     // Timer
-    const timerInterval = setInterval(() => {
-        timeLeft--;
-        document.title = `Tempo Restante: ${timeLeft}s`;
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            displayRetryButton();
-        }
-    }, 1000);
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.title = `Tempo Restante: ${timeLeft}s`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                displayRetryButton();
+            }
+        }, 1000);
+    }
 
-// Render Questions
-function renderQuiz() {
-    questions.forEach((q, index) => {
-        const questionElement = document.createElement('div');
-        questionElement.classList.add('question-box', 'left-align'); // Adiciona a classe da caixinha e a classe de alinhamento
-        questionElement.innerHTML = `<h4>${index + 1}. ${q.question}</h4>`; // Mudou para <h4>
-        if (q.type === "text") {
-            questionElement.innerHTML += `<input type="text" id="answer${index}" placeholder="Sua resposta...">`;
-        } else {
-            q.options.forEach((option, i) => {
-                questionElement.innerHTML += `<label><input type="radio" name="question${index}" value="${i}"> ${option}</label><br>`;
-            });
-        }
-        quizContainer.appendChild(questionElement);
-    });
-}
-
+    // Render Questions
+    function renderQuiz() {
+        quizContainer.innerHTML = ''; // Limpa as perguntas para tentar novamente
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.classList.add('question-box', 'left-align'); // Adiciona a classe da caixinha e a classe de alinhamento
+            questionElement.innerHTML = `<h4>${index + 1}. ${q.question}</h4>`; // Mudou para <h4>
+            if (q.type === "text") {
+                questionElement.innerHTML += `<input type="text" id="answer${index}" placeholder="Sua resposta...">`;
+            } else {
+                q.options.forEach((option, i) => {
+                    questionElement.innerHTML += `<label><input type="radio" name="question${index}" value="${i}"> ${option}</label><br>`;
+                });
+            }
+            quizContainer.appendChild(questionElement);
+        });
+    }
 
     // Display Retry Button
     function displayRetryButton() {
@@ -95,47 +99,55 @@ function renderQuiz() {
         resultsContainer.textContent = "Tempo esgotado!";
     }
 
-    // Submit Quiz
-function submitQuiz() {
-    // Desativa o botão para evitar múltiplos cliques
-    submitButton.disabled = true;
+    // Função para submeter o quiz
+    function submitQuiz() {
+        if (quizSubmitted) return; // Impede múltiplos envios
 
-    clearInterval(timerInterval);
-    let score = 0;  // Certifique-se de inicializar o score aqui, caso ainda não esteja
-    questions.forEach((q, index) => {
-        const userAnswer = q.type === "text"
-            ? document.getElementById(`answer${index}`).value.toUpperCase()
-            : document.querySelector(`input[name="question${index}"]:checked`)?.value;
-        if (userAnswer == q.answer) {
-            score++;
-        }
-    });
-    showResults();
-}
+        quizSubmitted = true; // Marca o quiz como enviado
+        submitButton.disabled = true; // Desativa o botão
+        submitButton.style.display = 'none'; // Oculta o botão de envio
 
-    // Show Results
+        clearInterval(timerInterval); // Para o temporizador, se houver
+
+        score = 0; // Reinicia o score para cada tentativa
+
+        questions.forEach((q, index) => {
+            const userAnswer = q.type === "text"
+                ? document.getElementById(`answer${index}`).value.toUpperCase()
+                : document.querySelector(`input[name="question${index}"]:checked`)?.value;
+            if (userAnswer == q.answer) {
+                score++;
+            }
+        });
+
+        showResults(); // Exibe os resultados
+    }
+
+    // Função para mostrar os resultados
     function showResults() {
         resultsContainer.innerHTML = `Acertos: ${score} de ${questions.length}`;
+        
+        // Verifica se o usuário acertou 70% ou mais para exibir o certificado
         if (score / questions.length >= 0.7) {
-            certificateContainer.style.display = "block";
+            certificateContainer.style.display = "block"; // Exibe o botão de certificado
+        } else {
+            retryButton.style.display = "block"; // Exibe o botão de tentar novamente
         }
     }
 
-    // Retry Quiz
+    // Função para reiniciar o quiz
     function retryQuiz() {
-        timeLeft = 180;
-        score = 0;
-        quizContainer.innerHTML = '';
-        renderQuiz();
-        retryButton.style.display = "none";
-        submitButton.style.display = "inline-block";
-        resultsContainer.textContent = '';
-        certificateContainer.style.display = "none";
-        setInterval(() => {
-            timeLeft--;
-            document.title = `Tempo Restante: ${timeLeft}s`;
-            if (timeLeft <= 0) displayRetryButton();
-        }, 1000);
+        quizSubmitted = false; // Permite novo envio do quiz
+        score = 0; // Reinicia o score
+        timeLeft = 180; // Reinicia o tempo
+        resultsContainer.textContent = ''; // Limpa os resultados anteriores
+        certificateContainer.style.display = "none"; // Oculta o botão de certificado
+        submitButton.style.display = "inline-block"; // Mostra o botão de envio novamente
+        submitButton.disabled = false; // Reativa o botão de envio
+        retryButton.style.display = "none"; // Oculta o botão de tentar novamente
+
+        renderQuiz(); // Função para recriar o quiz
+        startTimer(); // Inicia o timer novamente
     }
 
     // Event Listeners
@@ -144,4 +156,5 @@ function submitQuiz() {
 
     // Initialize Quiz
     renderQuiz();
+    startTimer();
 });
