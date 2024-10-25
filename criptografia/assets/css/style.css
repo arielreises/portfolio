@@ -1,0 +1,183 @@
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: flex-start;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Reduz a largura em telas menores */
+    max-width: 600px;
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+}
+
+h1 {
+    color: #007bff;
+}
+
+h3 {
+    color: #ffffff;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.green-button {
+    background-color: #28a745; /* Cor verde */
+    color: #fff;
+}
+
+.green-button:hover {
+    background-color: #218838; /* Cor verde mais escura para o efeito de hover */
+}
+
+.red-button {
+    background-color: #cc1111; /* Cor vermelha */
+    color: #fff;
+}
+
+.red-button:hover {
+    background-color: #882121; /* Cor vermelha mais escura para o efeito de hover */
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+/* Estilos para o cabeçalho */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navegação principal */
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Adiciona espaçamento nas laterais */
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza o conteúdo no desktop */
+}
+
+/* Links da navegação */
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap; /* Mantém os itens na mesma linha */
+}
+
+header nav ul li {
+    margin: 0 15px; /* Espaçamento entre os itens */
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px; /* Tamanho de fonte para desktop */
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ffdd57; /* Cor de destaque ao passar o mouse */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    header nav {
+        padding: 0 10px; /* Reduz o padding em telas menores */
+    }
+
+    header nav ul li {
+        margin: 0 10px; /* Reduz a margem entre os itens */
+    }
+
+    header nav ul li a {
+        font-size: 14px; /* Reduz o tamanho da fonte em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    header nav ul li {
+        margin: 0 5px; /* Mais compacto para telas de celular */
+    }
+
+    header nav ul li a {
+        font-size: 12px; /* Reduz ainda mais o tamanho da fonte em telas pequenas */
+    }
+}
+
+/* Adiciona margem no topo para compensar o cabeçalho fixo */
+body {
+    margin-top: 60px;
+}
+
+.left-align {
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.question-box {
+    border: 2px solid #007bff; /* Borda azul */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 15px; /* Espaçamento interno */
+    margin-bottom: 15px; /* Espaçamento entre as perguntas */
+    background-color: #f8f9fa; /* Cor de fundo clara */
+}
+
+
+/* Estilos do rodapé */
+footer {
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+    padding: 1px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    font-size: 11px;
+}

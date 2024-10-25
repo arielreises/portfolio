@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor ROT13 - Fatec Jundiaí</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="./assets/js/scriptrot13.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tradutor ROT13</h1>
+        
+        <label for="inputText" style="display: block; text-align: left;">Texto original</label>
+        <textarea id="inputText" placeholder="Digite o texto para converter..."></textarea>
+        
+        <label for="rotSelect" style="display: block; text-align: left; margin-top: 10px;">Escolha a cifra ROT:</label>
+        <select id="rotSelect">
+            <option value="1">ROT1</option>
+            <option value="2">ROT2</option>
+            <option value="3">ROT3</option>
+            <option value="4">ROT4</option>
+            <option value="5">ROT5</option>
+            <option value="6">ROT6</option>
+            <option value="7">ROT7</option>
+            <option value="8">ROT8</option>
+            <option value="9">ROT9</option>
+            <option value="10">ROT10</option>
+            <option value="11">ROT11</option>
+            <option value="12">ROT12</option>
+            <option value="13" selected>ROT13</option>
+            <option value="14">ROT14</option>
+            <option value="15">ROT15</option>
+            <option value="16">ROT16</option>
+            <option value="17">ROT17</option>
+            <option value="18">ROT18</option>
+            <option value="19">ROT19</option>
+            <option value="20">ROT20</option>
+            <option value="21">ROT21</option>
+            <option value="22">ROT22</option>
+            <option value="23">ROT23</option>
+            <option value="24">ROT24</option>
+            <option value="25">ROT25</option>
+        </select>
+
+        <button onclick="traduzirTexto()">Traduzir</button>
+        
+        <label for="outputText" style="display: block; text-align: left; margin-top: 10px;">Texto Traduzido</label>
+        <textarea id="outputText" placeholder="Resultado..." readonly></textarea>
+        
+        <button class="red-button" onclick="location.href='rot13.html'">Voltar</button>
+    </div>
+    <!-- Rodapé -->
+    <footer><br>
+        Criado por Ariel Reises para o Fatec Portas Abertas – Ciência, Tecnologia e Cultura na Praça<br>
+            <br>
+    </footer>
+</body>
+</html>
