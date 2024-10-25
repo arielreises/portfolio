@@ -96,18 +96,22 @@ function renderQuiz() {
     }
 
     // Submit Quiz
-    function submitQuiz() {
-        clearInterval(timerInterval);
-        questions.forEach((q, index) => {
-            const userAnswer = q.type === "text"
-                ? document.getElementById(`answer${index}`).value.toUpperCase()
-                : document.querySelector(`input[name="question${index}"]:checked`)?.value;
-            if (userAnswer == q.answer) {
-                score++;
-            }
-        });
-        showResults();
-    }
+function submitQuiz() {
+    // Desativa o botão para evitar múltiplos cliques
+    submitButton.disabled = true;
+
+    clearInterval(timerInterval);
+    let score = 0;  // Certifique-se de inicializar o score aqui, caso ainda não esteja
+    questions.forEach((q, index) => {
+        const userAnswer = q.type === "text"
+            ? document.getElementById(`answer${index}`).value.toUpperCase()
+            : document.querySelector(`input[name="question${index}"]:checked`)?.value;
+        if (userAnswer == q.answer) {
+            score++;
+        }
+    });
+    showResults();
+}
 
     // Show Results
     function showResults() {
